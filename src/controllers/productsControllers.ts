@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 
 import { IProductsController } from "../interfaces";
-import { IProduct } from "../interfaces/product";
 import ProductContainer from "../models/product";
 
 class ProductsController implements IProductsController {
@@ -11,6 +10,7 @@ class ProductsController implements IProductsController {
     this.addProduct = this.addProduct;
     this.getProductById = this.getProductById;
     this.deleteProduct = this.deleteProduct;
+    this.updateProduct = this.updateProduct;
     this.container = new ProductContainer("products", ".json");
   }
 
@@ -70,6 +70,31 @@ class ProductsController implements IProductsController {
       res.status(400).json({
         message: "Error deleting product",
       });
+    }
+  };
+
+  updateProduct = async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+    if (!id || isNaN(Number(id))) {
+      res.status(400).json({ message: "Bad Request: Check yours params" });
+      return;
+    }
+    const newProduct = {
+      ...req.body,
+      precio: Number(req.body.precio),
+    };
+
+    try {
+      await this.container.updateProduct(Number(id), newProduct);
+      res.json({
+        message: "Product updated",
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(404).json({
+          message: error.message,
+        });
+      }
     }
   };
 }

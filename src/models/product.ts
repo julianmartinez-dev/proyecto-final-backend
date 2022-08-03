@@ -76,19 +76,19 @@ class ProductContainer extends Container {
       const products = await JSON.parse(data);
       const productExist = products.some((p: IProduct) => p.id === id);
       if (!productExist) throw new Error("Product doesnt exists");
-
       const newProductList = products.filter(
-        (product: IProduct) => product.id === id
+        (product: IProduct) => product.id !== id
       );
       product.id = id;
       newProductList.push(product);
+      console.log({ consolelog: 3, newProductList });
 
       await fs.promises.writeFile(
         this.file,
         JSON.stringify(newProductList, null, 2)
       );
     } catch (error) {
-      throw new Error("Error updating product, " + error);
+      throw new Error(error as string);
     }
   }
 }

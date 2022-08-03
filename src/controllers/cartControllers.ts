@@ -1,20 +1,34 @@
-export const addProduct = () => {
-  return "addProduct";
-};
+import { Request, Response } from "express";
 
-export const deleteProduct = () => {
-  return "deleteProduct";
-};
+import { ICartController } from "../interfaces";
 
-export const createCart = () => {
-  return "createCart";
-  //return id
-};
+class CartController implements ICartController {
+  constructor() {
+    this.addProduct = this.addProduct;
+    this.deleteProduct = this.deleteProduct;
+    this.createCart = this.createCart;
+    this.getProducts = this.getProducts;
+    this.deleteCart = this.deleteCart;
+  }
+  addProduct = async (req: Request, res: Response): Promise<void> => {
+    res.json({ message: "Desde addProduct" });
+  };
 
-export const getProducts = () => {
-  return "getProducts";
-};
+  deleteProduct = async (req: Request, res: Response): Promise<void> => {
+    res.json({ message: "Desde deleteProduct" });
+  };
 
-export const deleteCart = () => {
-  return "deleteCart";
-};
+  createCart = async (req: Request, res: Response): Promise<void> => {
+    res.json({ message: "Desde createCart" });
+  };
+
+  getProducts = async (req: Request, res: Response): Promise<void> => {
+    res.json({ message: "Desde getProducts" });
+  };
+
+  deleteCart = async (req: Request, res: Response): Promise<void> => {
+    res.json({ message: "Desde deleteCart" });
+  };
+}
+
+export default CartController;

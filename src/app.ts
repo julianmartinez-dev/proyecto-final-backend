@@ -1,8 +1,7 @@
 import express from "express";
 import path from "path";
 
-import cartRouter from "./routes/cartRoutes";
-import productsRouter from "./routes/productsRoutes";
+import { cartRoutes, productsRoutes } from "./routes";
 
 // Create Express server
 const app = express();
@@ -16,6 +15,6 @@ app.use(
   express.static(path.join(__dirname, "../public"), { maxAge: 31557600000 })
 );
 
-app.use("/api/productos", productsRouter);
-app.use("/api/carrito", cartRouter);
+app.use("/api/productos", productsRoutes);
+app.use("/api/carrito", cartRoutes);
 export default app;

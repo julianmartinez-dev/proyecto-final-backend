@@ -1,15 +1,25 @@
 import { Request, Response } from "express";
 
 import { ICartController } from "../interfaces";
+import CartContainer from "../models/cart";
 
 class CartController implements ICartController {
+  container: CartContainer;
   constructor() {
     this.addProduct = this.addProduct;
     this.deleteProduct = this.deleteProduct;
     this.createCart = this.createCart;
     this.getProducts = this.getProducts;
     this.deleteCart = this.deleteCart;
+    this.container = new CartContainer("carts", ".json");
   }
+  createCart = async (req: Request, res: Response): Promise<void> => {
+    const { cart } = req.body;
+    await this.container.createCart(cart);
+    res.status(201).json({
+      message: "Cart created",
+    });
+  };
   addProduct = async (req: Request, res: Response): Promise<void> => {
     res.json({ message: "Desde addProduct" });
   };
@@ -17,17 +27,24 @@ class CartController implements ICartController {
   deleteProduct = async (req: Request, res: Response): Promise<void> => {
     res.json({ message: "Desde deleteProduct" });
   };
-
-  createCart = async (req: Request, res: Response): Promise<void> => {
-    res.json({ message: "Desde createCart" });
-  };
-
   getProducts = async (req: Request, res: Response): Promise<void> => {
-    res.json({ message: "Desde getProducts" });
+    const { id } = req.params;
+    const data = await this.container.getCart(Number(id));
+    if (!data) {
+      res.status(404).json({
+        message: "Cart not found",
+      });
+    } else {
+      res.json(data.products);
+    }
   };
 
   deleteCart = async (req: Request, res: Response): Promise<void> => {
-    res.json({ message: "Desde deleteCart" });
+    const { id } = req.params;
+    await this.container.deleteById(Number(id));
+    res.json({
+      message: "Cart deleted",
+    });
   };
 }
 

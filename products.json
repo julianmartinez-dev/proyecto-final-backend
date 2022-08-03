@@ -1,7 +1,82 @@
 [
-    {
-        "name" : "John",
-        "age" : "25",
-        "id" : 1
-    }
+  {
+    "id": 1,
+    "timestamp": "2020-01-01T00:00:00.000Z",
+    "nombre": "Producto 1",
+    "precio": 100,
+    "descripcion": "Descripcion del producto 1",
+    "codigo": "123456789",
+    "foto": "https://www.google.com/",
+    "stock": 20
+  },
+  {
+    "id": 2,
+    "timestamp": "2020-01-01T00:00:00.000Z",
+    "nombre": "Producto 2",
+    "precio": 200,
+    "descripcion": "Descripcion del producto 2",
+    "codigo": "123456789",
+    "foto": "https://www.google.com/",
+    "stock": 20
+  },
+  {
+    "id": 3,
+    "timestamp": "2020-01-01T00:00:00.000Z",
+    "nombre": "Producto 3",
+    "precio": 300,
+    "descripcion": "Descripcion del producto 3",
+    "codigo": "123456789",
+    "foto": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.gstatic.com%2Fimages%2Fbranding%2Fproduct%2F1x%2Fgoogleg_lodp.png&imgrefurl=https%3A%",
+    "stock": 20
+  },
+  {
+    "id": 4,
+    "timestamp": "2020-01-01T00:00:00.000Z",
+    "nombre": "Producto 4",
+    "precio": 400,
+    "descripcion": "Descripcion del producto 4",
+    "codigo": "123456789",
+    "foto": "https://www.google.com/",
+    "stock": 20
+  },
+  {
+    "id": 5,
+    "timestamp": "2020-01-01T00:00:00.000Z",
+    "nombre": "Producto 5",
+    "precio": 500,
+    "descripcion": "Descripcion del producto 5",
+    "codigo": "123456789",
+    "foto": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.gstatic.com%2Fimages%2Fbranding%2Fproduct%2F1x%2Fgoogleg_lodp.png&imgrefurl=https%3A%",
+    "stock": 20
+  },
+  {
+    "id": 6,
+    "timestamp": 1659546802087,
+    "nombre": "Producto 6",
+    "precio": "25",
+    "descripcion": "Descripcion del producto 3",
+    "codigo": "123456789",
+    "foto": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.gstatic.com%2Fimages%2Fbranding%2Fproduct%2F1x%2Fgoogleg_lodp.png&imgrefurl=https%3A%",
+    "stock": 20
+  },
+  {
+    "id": 7,
+    "timestamp": 1659546907198,
+    "nombre": "Producto 7",
+    "precio": 25,
+    "descripcion": "Descripcion del producto 3",
+    "codigo": "123456789",
+    "foto": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.gstatic.com%2Fimages%2Fbranding%2Fproduct%2F1x%2Fgoogleg_lodp.png&imgrefurl=https%3A%",
+    "stock": 20
+  },
+  {
+    "timestamp": 1659547034919,
+    "nombre": "Producto 8",
+    "precio": 25,
+    "descripcion": "Descripcion del producto 3",
+    "codigo": "123456789",
+    "foto": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.gstatic.com%2Fimages%2Fbranding%2Fproduct%2F1x%2Fgoogleg_lodp.png&imgrefurl=https%3A%",
+    "stock": 20,
+    "id": 8
+  }
 ]

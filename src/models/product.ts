@@ -28,7 +28,7 @@ class ProductContainer extends Container {
     }
   }
 
-  async getProduct(id?: number): Promise<IProduct> {
+  async getItem(id?: number): Promise<IProduct> {
     try {
       const data = await fs.promises.readFile(this.file, "utf-8");
       const products = await JSON.parse(data);
@@ -57,7 +57,9 @@ class ProductContainer extends Container {
         this.file,
         JSON.stringify(newProductList, null, 2)
       );
-    } catch (error) {}
+    } catch (error) {
+      throw new Error("Error deleting product, " + error);
+    }
   }
 
   async deleteAll(): Promise<void> {

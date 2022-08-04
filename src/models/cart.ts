@@ -52,22 +52,16 @@ class CartContainer extends Container {
     }
   }
 
-  async deleteProductFromCart(
-    cartID: number,
-    productID: number
-  ): Promise<void> {
+  async deleteProductFromCart(cart: ICart, productID: number): Promise<void> {
     try {
       const data = await fs.promises.readFile(this.file, "utf-8");
       const carts = await JSON.parse(data);
-      const cart = carts.find((c: ICart) => c.id === cartID);
 
-      if (!cart) {
-        throw new Error("Cart doesnt exist");
-      }
-
-      const newCart = cart.products.filter((p: IProduct) => p.id !== productID);
+      const newCart = cart.productos.filter(
+        (p: IProduct) => p.id !== productID
+      );
       const newCartList: ICart[] = carts.map((c: ICart) => {
-        if (c.id === cartID) {
+        if (c.id === cart.id) {
           c.productos = newCart;
         }
         return c;
@@ -76,7 +70,9 @@ class CartContainer extends Container {
         this.file,
         JSON.stringify(newCartList, null, 2)
       );
-    } catch (error) {}
+    } catch (error) {
+      throw new Error(error as string);
+    }
   }
 
   async addProductToCart(cart: ICart, product: IProduct) {

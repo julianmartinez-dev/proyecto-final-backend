@@ -55,7 +55,34 @@ class CartController implements ICartController {
   };
 
   deleteProduct = async (req: Request, res: Response): Promise<void> => {
-    res.json({ message: "Desde deleteProduct" });
+    const { id, id_prod } = req.params;
+    if (!id || isNaN(Number(id)) || !id_prod || isNaN(Number(id_prod))) {
+      res.status(400).json({
+        message: "Invalid id, check your params",
+      });
+      return;
+    }
+
+    const cart = await this.container.getCart(Number(id));
+    if (!cart) {
+      res.status(404).json({
+        message: "Cart not found",
+      });
+      return;
+    }
+
+    try {
+      await this.container.deleteProductFromCart(cart, Number(id_prod));
+      res.status(200).json({
+        message: "Product deleted from cart",
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(500).json({
+          message: error.message,
+        });
+      }
+    }
   };
   getProducts = async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;

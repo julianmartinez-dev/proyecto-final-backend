@@ -26,7 +26,15 @@ class CartController implements ICartController {
     });
   };
   addProduct = async (req: Request, res: Response): Promise<void> => {
-    res.json({ message: "Desde addProduct" });
+    const { id } = req.params;
+    if (!id || isNaN(Number(id))) {
+      res.status(400).json({
+        message: "Invalid id",
+      });
+      return;
+    }
+
+    //TODO: add product to cart
   };
 
   deleteProduct = async (req: Request, res: Response): Promise<void> => {
@@ -46,10 +54,19 @@ class CartController implements ICartController {
 
   deleteCart = async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
-    await this.container.deleteById(Number(id));
-    res.json({
-      message: "Cart deleted",
-    });
+
+    try {
+      await this.container.deleteById(Number(id));
+      res.json({
+        message: "Cart deleted",
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(404).json({
+          message: error.message,
+        });
+      }
+    }
   };
 }
 

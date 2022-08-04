@@ -47,7 +47,9 @@ class CartContainer extends Container {
         this.file,
         JSON.stringify(newCartList, null, 2)
       );
-    } catch (error) {}
+    } catch (error) {
+      throw new Error(error as string);
+    }
   }
 
   async deleteProductFromCart(

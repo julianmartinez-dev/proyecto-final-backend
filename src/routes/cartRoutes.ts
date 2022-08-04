@@ -11,10 +11,17 @@ router
     .route("/")
     .post(validateCart,cc.createCart);
 
-router.route("/:id").delete(cc.deleteCart);
+router
+    .route("/:id")
+    .delete(cc.deleteCart);
 
-router.route("/:id/products").get(cc.getProducts).post(cc.addProduct);
+router
+    .route("/:id/productos")
+    .get(cc.getProducts)
+    .post(cc.addProduct);
 
-router.route("/:id/products/:id_prod").delete(cc.deleteProduct);
+router
+    .route("/:id/productos/:id_prod")
+    .delete(cc.deleteProduct);
 
 export default router;

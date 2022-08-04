@@ -33,8 +33,25 @@ class CartController implements ICartController {
       });
       return;
     }
-
-    //TODO: add product to cart
+    const cart = await this.container.getCart(Number(id));
+    if (!cart) {
+      res.status(404).json({
+        message: "Cart not found",
+      });
+      return;
+    }
+    try {
+      await this.container.addProductToCart(cart, req.body);
+      res.status(200).json({
+        message: "Product added to cart",
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(500).json({
+          message: error.message,
+        });
+      }
+    }
   };
 
   deleteProduct = async (req: Request, res: Response): Promise<void> => {
@@ -54,7 +71,6 @@ class CartController implements ICartController {
 
   deleteCart = async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
-
     try {
       await this.container.deleteById(Number(id));
       res.json({

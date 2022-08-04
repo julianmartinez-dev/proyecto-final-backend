@@ -79,7 +79,24 @@ class CartContainer extends Container {
     } catch (error) {}
   }
 
-  //todo: add product to cart
+  async addProductToCart(cart: ICart, product: IProduct) {
+    try {
+      const data = await fs.promises.readFile(this.file, "utf-8");
+      const carts = await JSON.parse(data);
+
+      cart.productos.push(product);
+      const newCartList: ICart[] = carts.map((c: ICart) => {
+        if (c.id === cart.id) {
+          c.productos = cart.productos;
+        }
+        return c;
+      });
+      await fs.promises.writeFile(
+        this.file,
+        JSON.stringify(newCartList, null, 2)
+      );
+    } catch (error) {}
+  }
 }
 
 export default CartContainer;

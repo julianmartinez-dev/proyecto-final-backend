@@ -16,7 +16,6 @@ class CartContainer extends Container {
       cartList.length
         ? (cart.id = cartList[cartList.length - 1].id + 1)
         : (cart.id = 1);
-
       cartList.push(cart);
       await fs.promises.writeFile(this.file, JSON.stringify(cartList, null, 2));
       return cart.id;
@@ -67,7 +66,7 @@ class CartContainer extends Container {
       const newCart = cart.products.filter((p: IProduct) => p.id !== productID);
       const newCartList: ICart[] = carts.map((c: ICart) => {
         if (c.id === cartID) {
-          c.products = newCart;
+          c.productos = newCart;
         }
         return c;
       });

@@ -1,11 +1,15 @@
+/* eslint-disable prettier/prettier */
 import { Router } from "express";
 
 import CartController from "../controllers/cartControllers";
+import { validateCart } from '../middlewares/validation/cartValidations'
 
 const router = Router();
 const cc = new CartController();
 
-router.route("/").post(cc.createCart);
+router
+    .route("/")
+    .post(validateCart,cc.createCart);
 
 router.route("/:id").delete(cc.deleteCart);
 

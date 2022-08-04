@@ -14,10 +14,15 @@ class CartController implements ICartController {
     this.container = new CartContainer("carts", ".json");
   }
   createCart = async (req: Request, res: Response): Promise<void> => {
-    const { cart } = req.body;
-    await this.container.createCart(cart);
+    const cart = req.body;
+    const newCart = {
+      ...cart,
+      timestamp: Date.now(),
+    };
+    const id = await this.container.createCart(newCart);
     res.status(201).json({
       message: "Cart created",
+      id,
     });
   };
   addProduct = async (req: Request, res: Response): Promise<void> => {
@@ -35,7 +40,7 @@ class CartController implements ICartController {
         message: "Cart not found",
       });
     } else {
-      res.json(data.products);
+      res.json(data.productos);
     }
   };
 

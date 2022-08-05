@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request } from "express";
 import path from "path";
 
 import { cartRoutes, productsRoutes } from "./routes";
@@ -17,4 +17,11 @@ app.use(
 
 app.use("/api/productos", productsRoutes);
 app.use("/api/carrito", cartRoutes);
+app.use("/*", (req: Request, res) => {
+  console.log(req.headers);
+  res.status(404).json({
+    error: "Not found",
+    message: `Route: ${req.baseUrl} is not implemented.`,
+  });
+});
 export default app;

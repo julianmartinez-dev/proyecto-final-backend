@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import express, { Request } from "express";
 import path from "path";
 
@@ -5,7 +6,7 @@ import { cartRoutes, productsRoutes } from "./routes";
 
 // Create Express server
 const app = express();
-
+dotenv.config();
 // Express configuration
 app.set("port", process.env.PORT || 8080);
 app.use(express.json());

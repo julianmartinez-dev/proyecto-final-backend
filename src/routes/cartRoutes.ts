@@ -2,7 +2,7 @@
 import { Router } from "express";
 
 import CartController from "../controllers/cartControllers";
-import { validateCart } from '../middlewares/validation/cartValidations'
+import { validateAddProduct,validateCart } from '../middlewares/validation/cartValidations'
 
 const router = Router();
 const cc = new CartController();
@@ -16,9 +16,9 @@ router
     .delete(cc.deleteCart);
 
 router
-    .route("/:id/productos")
-    .get(cc.getProducts)
-    .post(cc.addProduct);
+  .route('/:id/productos')
+  .get(cc.getProducts)
+  .post(validateAddProduct, cc.addProduct);
 
 router
     .route("/:id/productos/:id_prod")

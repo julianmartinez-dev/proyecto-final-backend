@@ -1,6 +1,5 @@
-import { notDeepEqual } from "assert";
 import { NextFunction, Request, Response } from "express";
-import { check, checkSchema, validationResult } from "express-validator";
+import { check, validationResult } from "express-validator";
 
 export const validateCart = async (
   req: Request,

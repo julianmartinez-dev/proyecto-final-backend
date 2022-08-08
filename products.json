@@ -60,43 +60,23 @@
     "timestamp": 1659547653787
   },
   {
-    "nombre": "Producto 100",
+    "id": 7,
+    "nombre": "Producto 7",
     "precio": 25,
-    "descripcion": "Descripcion del producto 3",
+    "descripcion": "Descripcion del producto 7",
     "codigo": "123456789",
     "foto": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.gstatic.com%2Fimages%2Fbranding%2Fproduct%2F1x%2Fgoogleg_lodp.png&imgrefurl=https%3A%",
     "stock": 20,
-    "timestamp": 1659547653787,
-    "id": 7
+    "timestamp": 1659547653787
   },
   {
-    "nombre": "Producto 9",
+    "id": 8,
+    "nombre": "Producto 8",
     "precio": 25,
-    "descripcion": "Descripcion del producto 3",
+    "descripcion": "Descripcion del producto 8",
     "codigo": "123456789",
     "foto": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.gstatic.com%2Fimages%2Fbranding%2Fproduct%2F1x%2Fgoogleg_lodp.png&imgrefurl=https%3A%",
     "stock": 20,
-    "timestamp": 1659666639400,
-    "id": 8
-  },
-  {
-    "nombre": "Producto 9",
-    "precio": 25,
-    "descripcion": "Descripcion del producto 3",
-    "codigo": "123456789",
-    "foto": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.gstatic.com%2Fimages%2Fbranding%2Fproduct%2F1x%2Fgoogleg_lodp.png&imgrefurl=https%3A%",
-    "stock": 20,
-    "timestamp": 1659667056196,
-    "id": 9
-  },
-  {
-    "nombre": "Producto cambiado",
-    "precio": 125,
-    "codigo": "123456789",
-    "foto": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.gstatic.com%2Fimages%2Fbranding%2Fproduct%2F1x%2Fgoogleg_lodp.png&imgrefurl=https%3A%",
-    "stock": 20,
-    "timestamp": 1659547653787,
-    "descripcion": "Descripcion del producto cambiado otra vez",
-    "id": 10
+    "timestamp": 1659547653787
   }
 ]

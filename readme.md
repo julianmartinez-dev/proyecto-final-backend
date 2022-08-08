@@ -1,47 +1,40 @@
-# TypeScript Express API Bootstrap (base / project starter)
+# Primera entrega del proyecto final del curso de Backend de Coderhouse.
+### Consigna: Deberás entregar el estado de avance de tu aplicación eCommerce Backend, que implemente un servidor de aplicación basado en la plataforma Node.js y el módulo express. El servidor implementará dos conjuntos de rutas agrupadas en routers, uno con la url base **'/productos'** y el otro con **'/carrito'**. El puerto de escucha será el **8080** para desarrollo y **process.env.PORT** para producción en glitch.com
 
-This is a repository intended to serve as a starting point if you want to bootstrap a express API project in TypeScript.
 
-## Features
 
-- [TypeScript](https://www.typescriptlang.org/) (v4)
-- [ts-node-dev](https://github.com/wclr/ts-node-dev)
-- [Prettier](https://prettier.io/)
-- [ESLint](https://eslint.org/) with:
-  - [Simple Import Sort](https://github.com/lydell/eslint-plugin-simple-import-sort/)
-  - [Import plugin](https://github.com/benmosher/eslint-plugin-import/)
-- [Jest](https://jestjs.io) with [DOM Testing Library](https://testing-library.com/docs/dom-testing-library/intro)
-
-## Running the app
-
+## Para correr el proyecto en modo desarrollo
 ```
 # install dependencies
 npm install
 
-# run in dev mode on port 4000
+# run in dev mode on port 8080
 npm run dev
-
-# generate production build
-npm run build
-
-# run generated content in dist folder on port 4000
-npm run start
 ```
 
-## Testing
+## Para probar los endpoint de la API
 
-### Jest with supertest
+
+Usando Postman, podrás probar los endpoints de la API.
+
+Importar el archivo **"test/postman_test.json"** en el explorador de postman.
+
+
+Algunos de los endpoints que podrás probar son:
 
 ```
-npm run test
+/api/productos      - GET    - Lista todos los productos.
+/api/productos/:id  - GET    - Detalle de un producto.
+/api/productos/     - POST   - Crear un producto.
+/api/productos/:id  - PUT    - Actualizar un producto.
+/api/productos/:id  - DELETE - Eliminar un producto. 
 ```
-
-## Linting
+(Algunos endpoint requerirán que se envie un token para poder acceder a ellos, por lo que podrás probarlos con un token válido o con un token inválido. El token válido es **"admin"**.)
 
 ```
-# run linter
-npm run lint
-
-# fix lint issues
-npm run lint:fix
+/api/carrito                        - POST    - Crear un carrito y devuelve su id.
+/api/carrito/:id                    - DELETE  - Vacia un carrito y lo elimina.
+/api/carrito/:id/productos          - GET     - Muestra los productos de un carrito.
+/api/carrito/:id/productos          - POST    - Agrega un producto a un carrito.
+/api/carrito/:id/productos/:id_prod - DELETE  - Elimina un producto de un carrito.
 ```

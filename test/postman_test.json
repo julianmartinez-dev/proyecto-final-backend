@@ -1,0 +1,293 @@
+{
+	"info": {
+		"_postman_id": "5015c15f-53cb-46ea-a957-6efaeb8e4030",
+		"name": "Primera entrega Proyecto Final - Coderhouse Backend",
+		"description": "El servidor implementará dos conjuntos de rutas agrupadas en routers, uno con la url base '/productos' y el otro con '/carrito'. El puerto de escucha será el 8080 para desarrollo y process.env.PORT para producción en glitch.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19373256"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/productos",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"productos"
+							]
+						},
+						"description": "`GET: '/'`\n\nMe permite listar todos los productos disponibles. (Disponible para usuarios y administradores)."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/productos/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"productos",
+								"2"
+							]
+						},
+						"description": "`GET: '/:id'`\n\nMe permite listar un producto por su id. (Disponible para usuarios y administradores)."
+					},
+					"response": []
+				},
+				{
+					"name": "Add Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Producto 99\",\n    \"precio\": \"25\",\n    \"descripcion\": \"Descripcion del producto 3\",\n    \"codigo\": \"123456789\",\n    \"foto\": \"https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.gstatic.com%2Fimages%2Fbranding%2Fproduct%2F1x%2Fgoogleg_lodp.png&imgrefurl=https%3A%\",\n    \"stock\": 20\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/productos",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"productos"
+							]
+						},
+						"description": "`POST: '/'`\n\nPara incorporar productos al listado (Disponible solo para administradores, USAR TOKEN \"admin\")."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/productos/11",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"productos",
+								"11"
+							]
+						},
+						"description": "`DELETE: '/:id'`\n\nBorra un producto por su id (Disponible para administradores. Usar token \"admin\")."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Producto cambiado\",\n    \"precio\": \"125\",\n    \"codigo\": \"123456789\",\n    \"foto\": \"https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.gstatic.com%2Fimages%2Fbranding%2Fproduct%2F1x%2Fgoogleg_lodp.png&imgrefurl=https%3A%\",\n    \"stock\": 20,\n    \"timestamp\": 1659547653787,\n    \"descripcion\": \"Descripcion del producto cambiado otra vez\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/productos/10",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"productos",
+								"10"
+							]
+						},
+						"description": "`PUT: '/:id'`\n\nActualiza un producto por su id (Disponible para administradores, usar token \"admin\")."
+					},
+					"response": []
+				}
+			],
+			"description": "***El router base '/api/productos' implementará cuatro funcionalidades:***"
+		},
+		{
+			"name": "Carts",
+			"item": [
+				{
+					"name": "Get Products from Cart",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/carrito/1/productos",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"carrito",
+								"1",
+								"productos"
+							]
+						},
+						"description": "**`GET :'/id/productos'`**\n\nMe permite listar todos los productos guardados en x carrito"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productos\": [\n        {\n            \"id\": 1,\n            \"nombre\": \"Producto 1\",\n            \"precio\": 25,\n            \"descripcion\": \"Descripcion del producto 1\",\n            \"codigo\": \"123456789\",\n            \"foto\": \"https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.gstatic.com%2Fimages%2Fbranding%2Fproduct%2F1x%2Fgoogleg_lodp.png&imgrefurl=https%3A%\",\n            \"stock\": 20,\n            \"timestamp\": 1659547653787\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/carrito",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"carrito"
+							]
+						},
+						"description": "**`POST :\"/\"`**\n\nCrea un carrito y devuelve su id. Es necesario enviar un producto como mínimo."
+					},
+					"response": []
+				},
+				{
+					"name": "Add product to cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 6,\n    \"nombre\": \"Producto 6\",\n    \"descripcion\": \"Descripcion del producto 6\",\n    \"codigo\": \"123456789\",\n    \"precio\" : 100,\n    \"foto\": \"https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.gstatic.com%2Fimages%2Fbranding%2Fproduct%2F1x%2Fgoogleg_lodp.png&imgrefurl=https%3A%\",\n    \"stock\": 20,\n    \"timestamp\": 1659547653787\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/carrito/5/productos",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"carrito",
+								"5",
+								"productos"
+							]
+						},
+						"description": "`POST: '/:id/productos'`\n\nPara incorporar productos a un carrito correspondiente con el **id** de la url, es necesario enviar un producto en el body."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/carrito/6",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"carrito",
+								"6"
+							]
+						},
+						"description": "`DELETE '/:id'`\n\nVacia un carrito y lo elimina."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete product from cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/carrito/5/productos/5",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"carrito",
+								"5",
+								"productos",
+								"5"
+							]
+						},
+						"description": "`DELETE: '/:id/productos/:id_prod'`\n\nElimina un producto del carrito por su id de carrito **(:id)** y de producto **(:id_prod).**"
+					},
+					"response": []
+				}
+			],
+			"description": "***El router base '/api/carrito' implementará tres rutas disponibles para usuarios y administradores:***"
+		}
+	],
+	"variable": [
+		{
+			"key": "localhost",
+			"value": "http://localhost:8080/api"
+		}
+	]
+}

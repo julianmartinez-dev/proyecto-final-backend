@@ -1,17 +1,13 @@
 import { Request, Response } from "express";
 
+// import CartsDaoFile from "../daos/carts/CartsDaoFile";
 import { ICartController } from "../interfaces";
-import CartContainer from "../models/cart";
+import { IContainer } from "../interfaces/containers";
 
 class CartController implements ICartController {
-  container: CartContainer;
-  constructor() {
-    this.addProduct = this.addProduct;
-    this.deleteProduct = this.deleteProduct;
-    this.createCart = this.createCart;
-    this.getProducts = this.getProducts;
-    this.deleteCart = this.deleteCart;
-    this.container = new CartContainer("carts", ".json");
+  private container;
+  constructor(container: IContainer) {
+    this.container = container;
   }
   createCart = async (req: Request, res: Response): Promise<void> => {
     const cart = req.body;
@@ -41,7 +37,7 @@ class CartController implements ICartController {
       return;
     }
     try {
-      await this.container.addProductToCart(cart, req.body);
+      await this.container.addProduct(cart, req.body);
       res.status(200).json({
         message: "Product added to cart",
       });
@@ -72,7 +68,7 @@ class CartController implements ICartController {
     }
 
     try {
-      await this.container.deleteProductFromCart(cart, Number(id_prod));
+      await this.container.deleteProduct(cart, Number(id_prod));
       res.status(200).json({
         message: "Product deleted from cart",
       });

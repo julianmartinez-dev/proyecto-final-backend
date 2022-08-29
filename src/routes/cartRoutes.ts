@@ -2,10 +2,12 @@
 import { Router } from "express";
 
 import CartController from "../controllers/cartControllers";
+import CartsDaoFile from "../daos/carts/CartsDaoFile";
 import { validateAddProduct,validateCart } from '../middlewares/validation/cartValidations'
 
 const router = Router();
-const cc = new CartController();
+const cartContainer = new CartsDaoFile('carts.json');
+const cc = new CartController(cartContainer);
 
 router
     .route("/")

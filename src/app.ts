@@ -18,6 +18,8 @@ app.use(
 
 app.use("/api/productos", productsRoutes);
 app.use("/api/carrito", cartRoutes);
+
+//Any other route will show an 404 error message
 app.use("/*", (req: Request, res) => {
   console.log(req.headers);
   res.status(404).json({

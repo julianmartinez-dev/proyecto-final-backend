@@ -1,13 +1,10 @@
 import { Request, Response } from "express";
 
-import ProductContainer from "../models/product";
-
 export interface IProductsController {
   getProducts(req: Request, resp: Response): Promise<void>;
   addProduct(req: Request, resp: Response): Promise<void>;
   getProductById(req: Request, resp: Response): Promise<void>;
   deleteProduct(req: Request, resp: Response): Promise<void>;
-  container: ProductContainer;
 }
 
 export interface ICartController {

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
+import ProductContainer from "../../src3/models/product";
 import { IProductsController } from "../interfaces";
-import ProductContainer from "../models/product";
 
 class ProductsController implements IProductsController {
   container: ProductContainer;

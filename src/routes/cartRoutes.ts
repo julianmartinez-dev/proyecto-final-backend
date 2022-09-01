@@ -1,17 +1,33 @@
+import "dotenv/config";
+
 import { Router } from "express";
 
 import CartController from "../controllers/cartControllers";
-import { cartDao } from "../daos";
+import CartDaoFirebase from "../daos/carts/CartDaoFirebase";
+import CartsDaoMongo from "../daos/carts/CartDaoMongo";
+import CartsDaoFile from "../daos/carts/CartsDaoFile";
+import CartsDaoMemory from "../daos/carts/CartsDaoMemory";
 import {
   validateAddProduct,
   validateCart,
 } from "../middlewares/validation/cartValidations";
 
 const router = Router();
-// const cartContainer = new CartsDaoFile('carts.json');
-
-const cartContainer = cartDao;
-const cc = new CartController(cartContainer);
+let daoCart;
+switch (process.env.PERSISTENCE) {
+  case "json":
+    daoCart = new CartsDaoFile();
+    break;
+  case "mongodb":
+    daoCart = new CartsDaoMongo();
+  case "firebase":
+    daoCart = new CartDaoFirebase();
+    break;
+  default:
+    daoCart = new CartsDaoMemory();
+    break;
+}
+const cc = new CartController(daoCart);
 
 router.route("/").post(validateCart, cc.createCart);
 

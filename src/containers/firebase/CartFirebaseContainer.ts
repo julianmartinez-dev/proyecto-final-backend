@@ -5,8 +5,8 @@ class CartFirebaseContainer {
   private db: FirebaseFirestore.Firestore;
   private query: FirebaseFirestore.CollectionReference;
   constructor() {
-    this.query = this.db.collection("carts");
     this.db = config.firebase.db;
+    this.query = this.db.collection("carts");
   }
 
   getAllCarts = async (): Promise<ICart[]> => {
@@ -27,7 +27,7 @@ class CartFirebaseContainer {
       await doc.create({ ...cart, id: newID });
       return newID;
     } catch (error) {
-      throw new Error(error);
+      throw new Error("error");
     }
   };
   //Get Cart
@@ -38,7 +38,7 @@ class CartFirebaseContainer {
       if (!cart.exists) return null;
       return cart.data() as ICart;
     } catch (error) {
-      throw new Error(error);
+      throw new Error("error");
     }
   };
 
@@ -55,7 +55,7 @@ class CartFirebaseContainer {
       await doc.delete();
       //TODO: Verificar el metodo
     } catch (error) {
-      throw new Error(error);
+      throw new Error("error");
     }
   };
 

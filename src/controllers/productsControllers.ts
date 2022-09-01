@@ -10,7 +10,6 @@ class ProductsController implements IProductsController {
 
   getProducts = async (_req: Request, res: Response): Promise<void> => {
     // const data = await this.container.getItem();
-    console.log("hasta aca llega");
     const data = await this.container.getItem();
     if (!data) {
       res.status(404).json({

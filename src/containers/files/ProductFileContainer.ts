@@ -6,6 +6,7 @@ class ProductFileContainer {
   private fileName: string;
   constructor(fileName: string) {
     this.fileName = fileName;
+    console.log("fileName", fileName);
   }
 
   addProduct = async (product: IProduct): Promise<number> => {

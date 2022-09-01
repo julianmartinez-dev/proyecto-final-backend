@@ -78,5 +78,15 @@
     "foto": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.gstatic.com%2Fimages%2Fbranding%2Fproduct%2F1x%2Fgoogleg_lodp.png&imgrefurl=https%3A%",
     "stock": 20,
     "timestamp": 1659547653787
+  },
+  {
+    "nombre": "Producto cambiado",
+    "precio": 125,
+    "codigo": "123456789",
+    "foto": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.gstatic.com%2Fimages%2Fbranding%2Fproduct%2F1x%2Fgoogleg_lodp.png&imgrefurl=https%3A%",
+    "stock": 20,
+    "timestamp": 1659547653787,
+    "descripcion": "Descripcion del producto cambiado otra vez",
+    "id": 9
   }
 ]

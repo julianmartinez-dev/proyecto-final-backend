@@ -19,6 +19,7 @@ class CartFileContainer {
         this.fileName,
         JSON.stringify(cartList, null, 2)
       );
+      console.log("Desde createCart");
       return cart.id;
     } catch (error) {
       throw new Error("Error saving file: " + error);
@@ -95,7 +96,10 @@ class CartFileContainer {
         }
         return c;
       });
-      await fs.promises.writeFile(this.fileName, JSON.stringify(newCartList));
+      await fs.promises.writeFile(
+        this.fileName,
+        JSON.stringify(newCartList, null, 2)
+      );
     } catch (error) {
       console.log(error);
     }

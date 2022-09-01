@@ -2,11 +2,11 @@ import { Request, Response } from "express";
 
 // import CartsDaoFile from "../daos/carts/CartsDaoFile";
 import { ICartController } from "../interfaces";
-import { IContainer } from "../interfaces/containers";
+// import { IContainer } from "../interfaces/containers";
 
 class CartController implements ICartController {
   private container;
-  constructor(container: IContainer) {
+  constructor(container) {
     this.container = container;
   }
   createCart = async (req: Request, res: Response): Promise<void> => {

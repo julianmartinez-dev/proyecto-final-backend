@@ -1,20 +1,16 @@
 import { Request, Response } from "express";
 
-import ProductContainer from "../../src3/models/product";
 import { IProductsController } from "../interfaces";
 
 class ProductsController implements IProductsController {
-  container: ProductContainer;
-  constructor() {
-    this.getProducts = this.getProducts;
-    this.addProduct = this.addProduct;
-    this.getProductById = this.getProductById;
-    this.deleteProduct = this.deleteProduct;
-    this.updateProduct = this.updateProduct;
-    this.container = new ProductContainer("products", ".json");
+  private container;
+  constructor(container) {
+    this.container = container;
   }
 
   getProducts = async (_req: Request, res: Response): Promise<void> => {
+    // const data = await this.container.getItem();
+    console.log("hasta aca llega");
     const data = await this.container.getItem();
     if (!data) {
       res.status(404).json({

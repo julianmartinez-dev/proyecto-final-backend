@@ -2,6 +2,7 @@ import mongoose, { Model } from "mongoose";
 
 import { config } from "../../config";
 import { ICart, IProduct } from "../../interfaces";
+import { generateID } from "../../utils/generateID";
 
 try {
   mongoose.connect(config.mongoDB.url);
@@ -20,7 +21,7 @@ class CartMongoContainer {
   createCart = async (cart: ICart): Promise<number> => {
     const newCart = new this.collection({
       ...cart,
-      id: 1233,
+      id: generateID(),
       timestamp: Date.now(),
     });
     const { id } = await newCart.save();

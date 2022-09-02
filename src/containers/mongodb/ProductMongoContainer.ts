@@ -1,6 +1,7 @@
 import { Model } from "mongoose";
 
 import { IProduct } from "../../interfaces";
+import { generateID } from "../../utils/generateID";
 
 class ProductMongoContainer {
   private collection: Model<IProduct>;
@@ -15,7 +16,7 @@ class ProductMongoContainer {
   addProduct = async (product: IProduct): Promise<number> => {
     const newProduct = new this.collection({
       ...product,
-      id: 1233,
+      id: generateID(),
       precio: Number(product.precio),
       timestamp: Date.now(),
     });

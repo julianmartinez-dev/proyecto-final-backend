@@ -29,6 +29,7 @@ class CartController implements ICartController {
       });
       return;
     }
+    //TODO: Implement this validation in the container
     const cart = await this.container.getCart(Number(id));
     if (!cart) {
       res.status(404).json({
@@ -58,7 +59,7 @@ class CartController implements ICartController {
       });
       return;
     }
-
+    //TODO: Implement this validation in the container
     const cart = await this.container.getCart(Number(id));
     if (!cart) {
       res.status(404).json({

@@ -20,6 +20,7 @@ switch (process.env.PERSISTENCE) {
     break;
   case "mongodb":
     daoCart = new CartsDaoMongo();
+    break;
   case "firebase":
     daoCart = new CartDaoFirebase();
     break;

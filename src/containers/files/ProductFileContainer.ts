@@ -14,10 +14,14 @@ class ProductFileContainer {
       const document = await fs.promises.readFile(this.fileName, "utf-8");
       const productList: IProduct[] = await JSON.parse(document);
 
+      //If productList is empty, set id to 1, else set id to last id + 1
       productList.length
         ? (product.id = productList[productList.length - 1].id + 1)
         : (product.id = 1);
 
+      //Set price to Number
+      product.precio = Number(product.precio);
+      product.timestamp = Date.now();
       productList.push(product);
       await fs.promises.writeFile(
         this.fileName,

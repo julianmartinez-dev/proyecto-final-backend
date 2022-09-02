@@ -1,40 +1,49 @@
-import mongoose from "mongoose";
+import { Model } from "mongoose";
 
 import { IProduct } from "../../interfaces";
 
 class ProductMongoContainer {
-  private collection;
-  constructor(collection: string, schema: mongoose.Schema) {
-    this.collection = mongoose.model(collection, schema);
+  private collection: Model<IProduct>;
+  // constructor(collection: string, schema: any) {
+  //   this.collection = mongoose.model(collection, schema);
+  // }
+  constructor(model: Model<IProduct>) {
+    this.collection = model;
   }
 
   //AddProduct
   addProduct = async (product: IProduct): Promise<number> => {
-    const newProduct = new this.collection(product);
-    const { _id } = await newProduct.save();
-    return _id;
+    const newProduct = new this.collection({
+      ...product,
+      id: 1233,
+      precio: Number(product.precio),
+      timestamp: Date.now(),
+    });
+    const { id } = await newProduct.save();
+    return id;
   };
 
   //GetItem
-  getItem = async (id?: string): Promise<IProduct | null> => {
+  getItem = async (id?: number): Promise<IProduct | null> => {
     return id
-      ? await this.collection.findById(id)
-      : await this.collection.find();
+      ? ((await this.collection
+          .findOne({ id })
+          .select("-_id -__v")
+          .lean()) as IProduct)
+      : ((await this.collection
+          .find()
+          .select("-_id -__v")
+          .lean()) as unknown as IProduct);
   };
 
   //deleteById
-  deleteById = async (id: string): Promise<void> => {
-    await this.collection.findByIdAndDelete(id);
-  };
-
-  //DeleteAll
-  deleteAll = async (): Promise<void> => {
-    await this.collection.deleteMany({});
+  deleteById = async (id: number): Promise<void> => {
+    await this.collection.findOneAndDelete({ id });
   };
 
   //UpdateProduct
   updateProduct = async (id: string, product: IProduct): Promise<void> => {
-    await this.collection.findByIdAndUpdate(id, product);
+    await this.collection.findOneAndUpdate({ id, product });
   };
 }
 

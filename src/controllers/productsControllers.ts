@@ -25,6 +25,8 @@ class ProductsController implements IProductsController {
       ...req.body,
       timestamp: Date.now(),
       precio: Number(req.body.precio),
+      //TODO: quitar esto
+      //!Aplicado en mongodb
     };
     const id = await this.container.addProduct(newProduct);
     if (!id) {

@@ -1,17 +1,11 @@
-import mongoose, { Model, model, Schema } from "mongoose";
+import { Model, model, models, Schema } from "mongoose";
 
 import { ICart } from "../interfaces";
 
-const cartSchema = new Schema(
-  {
-    id: { type: Number, required: true },
-    productos: { type: Array, required: true },
-  },
-  {
-    timestamps: true,
-  }
-);
+const cartSchema = new Schema({
+  id: { type: Number, required: true },
+  productos: { type: Array, required: true },
+  timestamp: { type: Number, required: true },
+});
 
-const Cart: Model<ICart> = mongoose.models.Cart || model("cart", cartSchema);
-
-export default Cart;
+export const Cart: Model<ICart> = models.Cart || model("carts", cartSchema);

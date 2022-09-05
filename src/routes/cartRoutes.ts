@@ -2,6 +2,7 @@ import "dotenv/config";
 
 import { Router } from "express";
 
+import { connectFirebase } from "../config/connections";
 import CartController from "../controllers/cartControllers";
 import CartDaoFirebase from "../daos/carts/CartDaoFirebase";
 import CartsDaoMongo from "../daos/carts/CartDaoMongo";
@@ -23,6 +24,7 @@ switch (process.env.PERSISTENCE) {
     break;
   case "firebase":
     daoCart = new CartDaoFirebase();
+    connectFirebase();
     break;
   default:
     daoCart = new CartsDaoMemory();

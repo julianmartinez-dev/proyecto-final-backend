@@ -3,9 +3,6 @@ import "dotenv/config";
 import { Router } from "express";
 
 import ProductsController from "../controllers/productsControllers";
-import { productsDao } from "../daos";
-import CartsDaoFile from "../daos/carts/CartsDaoFile";
-import CartsDaoMemory from "../daos/carts/CartsDaoMemory";
 import ProductsDaoFirebase from "../daos/products/ProductDaoFirebase";
 import ProductsDaoFile from "../daos/products/ProductsDaoFile";
 import ProductsDaoMemory from "../daos/products/ProductsDaoMemory";

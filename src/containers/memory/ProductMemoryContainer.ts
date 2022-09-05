@@ -10,7 +10,7 @@ class ProductMemoryContainer {
       ? (product.id = this.productList[this.productList.length - 1].id + 1)
       : (product.id = 1);
     product.timestamp = Date.now();
-    product.precio = Number(product.precio); 
+    product.precio = Number(product.precio);
     this.productList.push(product);
     return product.id;
   };

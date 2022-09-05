@@ -2,11 +2,11 @@ import * as admin from "firebase-admin";
 
 import serviceAccount from "./firebase.json";
 
+//Initialize Firebase
 try {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
   });
-  console.log("Firestore connected");
 } catch (error) {
   console.log(error);
 }

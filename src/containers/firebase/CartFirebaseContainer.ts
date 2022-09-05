@@ -61,12 +61,22 @@ class CartFirebaseContainer {
 
   //deleteProduct
   deleteProduct = async (cart: ICart, productID: number): Promise<void> => {
-    console.log("deleteProduct falta implementar");
+    const doc = this.query.doc(`${cart.id}`);
+    await doc.update({
+      productos: cart.productos.filter((p) => p.id !== productID),
+    });
   };
 
   //addProduct
   addProduct = async (cart: ICart, product: IProduct): Promise<void> => {
-    console.log("addProduct falta implementar");
+    try {
+      const doc = this.query.doc(`${cart.id}`);
+      await doc.update({
+        productos: [...cart.productos, product],
+      });
+    } catch (error) {
+      throw new Error("Error adding product");
+    }
   };
 }
 

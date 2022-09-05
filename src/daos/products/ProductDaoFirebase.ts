@@ -1,6 +1,6 @@
-import CartFirebaseContainer from "../../containers/firebase/CartFirebaseContainer";
+import ProductFirebaseContainer from "../../containers/firebase/ProductFirebaseContainer";
 
-class ProductDaoFirebase extends CartFirebaseContainer {
+class ProductDaoFirebase extends ProductFirebaseContainer {
   constructor() {
     super();
   }

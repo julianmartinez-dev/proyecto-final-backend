@@ -1,40 +1,44 @@
 import fs from "fs";
 
-import { ICart } from "../interfaces";
-import { IProduct } from "../interfaces/product";
-import Container, { IFileExtension } from "./container";
+import { ICart, IProduct } from "../../interfaces";
 
-class CartContainer extends Container {
-  constructor(fileName: string, fileExtension: IFileExtension) {
-    super(fileName, fileExtension);
+class CartFileContainer {
+  private fileName: string;
+  constructor(fileName: string) {
+    this.fileName = fileName;
   }
-  async createCart(cart: ICart): Promise<number> {
+  createCart = async (cart: ICart): Promise<number> => {
     try {
-      const document = await fs.promises.readFile(this.file, "utf-8");
+      const document = await fs.promises.readFile(this.fileName, "utf-8");
       const cartList: ICart[] = await JSON.parse(document);
-
       cartList.length
         ? (cart.id = cartList[cartList.length - 1].id + 1)
         : (cart.id = 1);
       cartList.push(cart);
-      await fs.promises.writeFile(this.file, JSON.stringify(cartList, null, 2));
+      await fs.promises.writeFile(
+        this.fileName,
+        JSON.stringify(cartList, null, 2)
+      );
+      console.log("Desde createCart");
       return cart.id;
     } catch (error) {
       throw new Error("Error saving file: " + error);
     }
-  }
-  async getCart(id: number): Promise<ICart> {
+  };
+  getCart = async (id: number): Promise<ICart> => {
     try {
-      const data = await fs.promises.readFile(this.file, "utf-8");
+      const data = await fs.promises.readFile(this.fileName, "utf-8");
       const carts = await JSON.parse(data);
-      return carts.find((cart: ICart) => cart.id === id) || null;
+      const cart = carts.find((c: ICart) => c.id === id) || null;
+      return cart;
     } catch (error) {
-      throw new Error(`Error reading file: ` + error);
+      throw new Error(error as string);
     }
-  }
-  async deleteById(id: number): Promise<void> {
+  };
+
+  deleteById = async (id: number): Promise<void> => {
     try {
-      const data = await fs.promises.readFile(this.file, "utf-8");
+      const data = await fs.promises.readFile(this.fileName, "utf-8");
       const carts = await JSON.parse(data);
       const cartExist = carts.some((c: ICart) => c.id === id);
 
@@ -44,43 +48,48 @@ class CartContainer extends Container {
 
       const newCartList = carts.filter((cart: ICart) => cart.id !== id);
       await fs.promises.writeFile(
-        this.file,
+        this.fileName,
         JSON.stringify(newCartList, null, 2)
       );
     } catch (error) {
       throw new Error(error as string);
     }
-  }
+  };
 
-  async deleteProductFromCart(cart: ICart, productID: number): Promise<void> {
+  deleteProduct = async (cart: ICart, productID: number): Promise<void> => {
     try {
-      const data = await fs.promises.readFile(this.file, "utf-8");
+      //Read data from file and get list of carts
+      const data = await fs.promises.readFile(this.fileName, "utf-8");
       const carts = await JSON.parse(data);
 
+      //Delete product from cart
       const newCart = cart.productos.filter(
         (p: IProduct) => p.id !== productID
       );
+
+      //Update cart list
       const newCartList: ICart[] = carts.map((c: ICart) => {
         if (c.id === cart.id) {
           c.productos = newCart;
         }
         return c;
       });
+      //Write new cart list to file
       await fs.promises.writeFile(
-        this.file,
+        this.fileName,
         JSON.stringify(newCartList, null, 2)
       );
     } catch (error) {
       throw new Error(error as string);
     }
-  }
+  };
 
-  async addProductToCart(cart: ICart, product: IProduct) {
+  addProduct = async (cart: ICart, product: IProduct): Promise<void> => {
     try {
-      const data = await fs.promises.readFile(this.file, "utf-8");
+      const data = await fs.promises.readFile(this.fileName, "utf-8");
       const carts = await JSON.parse(data);
-
       cart.productos.push(product);
+
       const newCartList: ICart[] = carts.map((c: ICart) => {
         if (c.id === cart.id) {
           c.productos = cart.productos;
@@ -88,11 +97,13 @@ class CartContainer extends Container {
         return c;
       });
       await fs.promises.writeFile(
-        this.file,
+        this.fileName,
         JSON.stringify(newCartList, null, 2)
       );
-    } catch (error) {}
-  }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
-export default CartContainer;
+export default CartFileContainer;

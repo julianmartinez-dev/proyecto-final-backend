@@ -1,48 +1,56 @@
 import fs from "fs";
 
-import { IProduct } from "../interfaces/product";
-import Container, { IFileExtension } from "./container";
+import { IProduct } from "../../interfaces";
 
-class ProductContainer extends Container {
-  constructor(fileName: string, fileExtension: IFileExtension) {
-    super(fileName, fileExtension);
+class ProductFileContainer {
+  private fileName: string;
+  constructor(fileName: string) {
+    this.fileName = fileName;
+    console.log("fileName", fileName);
   }
 
-  async addProduct(product: IProduct): Promise<number> {
+  addProduct = async (product: IProduct): Promise<number> => {
     try {
-      const document = await fs.promises.readFile(this.file, "utf-8");
+      const document = await fs.promises.readFile(this.fileName, "utf-8");
       const productList: IProduct[] = await JSON.parse(document);
 
+      //If productList is empty, set id to 1, else set id to last id + 1
       productList.length
         ? (product.id = productList[productList.length - 1].id + 1)
         : (product.id = 1);
 
+      //Set price to Number
+      product.precio = Number(product.precio);
+      product.timestamp = Date.now();
       productList.push(product);
       await fs.promises.writeFile(
-        this.file,
+        this.fileName,
         JSON.stringify(productList, null, 2)
       );
       return product.id;
     } catch (error) {
       throw new Error("Error saving file: " + error);
     }
-  }
+  };
 
-  async getItem(id?: number): Promise<IProduct> {
+  getItem = async (id?: number): Promise<IProduct | IProduct[]> => {
     try {
-      const data = await fs.promises.readFile(this.file, "utf-8");
+      //Get products from file
+      const data = await fs.promises.readFile(this.fileName, "utf-8");
       const products = await JSON.parse(data);
+
+      //If id is not provided, return all products
       return id
         ? products.find((product: IProduct) => product.id === id) || null
         : products;
     } catch (error) {
       throw new Error(`Error reading file: ` + error);
     }
-  }
+  };
 
-  async deleteById(id: number): Promise<void> {
+  deleteById = async (id: number): Promise<void> => {
     try {
-      const data = await fs.promises.readFile(this.file, "utf-8");
+      const data = await fs.promises.readFile(this.fileName, "utf-8");
       const products = await JSON.parse(data);
       const productExist = products.some((p: IProduct) => p.id === id);
 
@@ -54,43 +62,45 @@ class ProductContainer extends Container {
         (product: IProduct) => product.id !== id
       );
       await fs.promises.writeFile(
-        this.file,
+        this.fileName,
         JSON.stringify(newProductList, null, 2)
       );
     } catch (error) {
-      throw new Error("Error deleting product, " + error);
+      throw new Error("Error deleting product: " + error);
     }
-  }
+  };
 
-  async deleteAll(): Promise<void> {
+  deleteAll = async (): Promise<void> => {
     try {
-      await fs.promises.writeFile(this.file, JSON.stringify([], null, 2));
+      await fs.promises.writeFile(this.fileName, JSON.stringify([], null, 2));
     } catch (error) {
       throw new Error("Error deleting products: " + error);
     }
-  }
+  };
 
-  async updateProduct(id: number, product: IProduct): Promise<void> {
+  updateProduct = async (id: number, product: IProduct): Promise<void> => {
     try {
-      const data = await fs.promises.readFile(this.file, "utf-8");
+      const data = await fs.promises.readFile(this.fileName, "utf-8");
       const products = await JSON.parse(data);
       const productExist = products.some((p: IProduct) => p.id === id);
-      if (!productExist) throw new Error("Product doesnt exists");
+
+      if (!productExist) {
+        throw new Error("Product doesnt exist");
+      }
       const newProductList = products.filter(
         (product: IProduct) => product.id !== id
       );
       product.id = id;
       newProductList.push(product);
-      console.log({ consolelog: 3, newProductList });
 
       await fs.promises.writeFile(
-        this.file,
+        this.fileName,
         JSON.stringify(newProductList, null, 2)
       );
     } catch (error) {
       throw new Error(error as string);
     }
-  }
+  };
 }
 
-export default ProductContainer;
+export default ProductFileContainer;

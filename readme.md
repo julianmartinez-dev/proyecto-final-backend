@@ -1,7 +1,21 @@
-# Primera entrega del proyecto final del curso de Backend de Coderhouse.
-### Consigna: Deberás entregar el estado de avance de tu aplicación eCommerce Backend, que implemente un servidor de aplicación basado en la plataforma Node.js y el módulo express. El servidor implementará dos conjuntos de rutas agrupadas en routers, uno con la url base **'/productos'** y el otro con **'/carrito'**. El puerto de escucha será el **8080** para desarrollo y **process.env.PORT** para producción en glitch.com
+# Proyecto final Backend Coderhouse
+# Segunda entrega
 
+El proyecto pueder usar distintas instancias para la base de datos, las siguientes son las que se usaron en el desarrollo:
+* Memoria
+* FileSystem (.json)
+* MongoDB
+* Firebase
 
+Solo necesita cambiar el valor de la variable `PERSISTENCE` en el archivo `.env`
+
+## Variables de entorno
+Renombrar el archivo **.env.template** a **.env** y completar las variables de entorno.
+```
+PORT=
+MONGO_URL=
+PERSITENCE= json|mongodb|firebase|memory
+```
 
 ## Para correr el proyecto en modo desarrollo
 ```
@@ -11,6 +25,7 @@ npm install
 # run in dev mode on port 8080
 npm run dev
 ```
+
 
 ## Para probar los endpoint de la API
 

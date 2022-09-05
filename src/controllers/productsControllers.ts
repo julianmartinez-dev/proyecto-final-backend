@@ -1,20 +1,15 @@
 import { Request, Response } from "express";
 
 import { IProductsController } from "../interfaces";
-import ProductContainer from "../models/product";
 
 class ProductsController implements IProductsController {
-  container: ProductContainer;
-  constructor() {
-    this.getProducts = this.getProducts;
-    this.addProduct = this.addProduct;
-    this.getProductById = this.getProductById;
-    this.deleteProduct = this.deleteProduct;
-    this.updateProduct = this.updateProduct;
-    this.container = new ProductContainer("products", ".json");
+  private container;
+  constructor(container) {
+    this.container = container;
   }
 
   getProducts = async (_req: Request, res: Response): Promise<void> => {
+    // const data = await this.container.getItem();
     const data = await this.container.getItem();
     if (!data) {
       res.status(404).json({
@@ -30,6 +25,8 @@ class ProductsController implements IProductsController {
       ...req.body,
       timestamp: Date.now(),
       precio: Number(req.body.precio),
+      //TODO: quitar esto
+      //!Aplicado en mongodb
     };
     const id = await this.container.addProduct(newProduct);
     if (!id) {
